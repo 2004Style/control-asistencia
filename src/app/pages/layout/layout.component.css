@@ -1,0 +1,7 @@
+.neumorph {
+  box-shadow: 8px 8px 24px #e0e0e0, -8px -8px 24px #ffffff;
+}
+
+.neumorph-inset {
+  box-shadow: inset 4px 4px 12px #e0e0e0, inset -4px -4px 12px #ffffff;
+}

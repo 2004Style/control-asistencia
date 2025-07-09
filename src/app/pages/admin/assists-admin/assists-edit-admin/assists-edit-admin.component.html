@@ -1,0 +1,212 @@
+<form
+  *ngIf="form"
+  [formGroup]="form"
+  (submit)="operate()"
+  class="relative flex flex-col gap-3 w-full p-3 rounded bg-[#034561]"
+>
+  <!-- Campo oculto para el ID -->
+  <div [hidden]="true">
+    <label for="idAssist" class="text-white font-extrabold">Id</label>
+    <input
+      matInput
+      placeholder="ID"
+      formControlName="idAssist"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- Status -->
+  <div>
+    <label for="status" class="text-white font-extrabold">Estado</label>
+    <input
+      matInput
+      placeholder="Estado"
+      formControlName="status"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- attendanceId -->
+  <div>
+    <label for="attendanceId" class="text-white font-extrabold"
+      >ID de Asistencia</label
+    >
+    <input
+      matInput
+      type="number"
+      placeholder="ID de Asistencia"
+      formControlName="attendanceId"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- enrollmentId -->
+  <div>
+    <label for="enrollmentId" class="text-white font-extrabold"
+      >ID de Matrícula</label
+    >
+    <input
+      matInput
+      type="number"
+      placeholder="ID de Matrícula"
+      formControlName="enrollmentId"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- attendanceDate -->
+  <div>
+    <label for="attendanceDate" class="text-white font-extrabold"
+      >Fecha de Asistencia</label
+    >
+    <input
+      matInput
+      type="date"
+      placeholder="Fecha de Asistencia"
+      formControlName="attendanceDate"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- attendanceEntryTime -->
+  <div>
+    <label for="attendanceEntryTime" class="text-white font-extrabold"
+      >Hora de Entrada</label
+    >
+    <input
+      matInput
+      type="time"
+      placeholder="Hora de Entrada"
+      formControlName="attendanceEntryTime"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- attendancePresent -->
+  <div>
+    <label for="attendancePresent" class="text-white font-extrabold"
+      >Presente</label
+    >
+    <!-- Considerar usar un checkbox o select para booleanos -->
+    <input
+      matInput
+      placeholder="Presente (true/false)"
+      formControlName="attendancePresent"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- attendanceLate -->
+  <div>
+    <label for="attendanceLate" class="text-white font-extrabold"
+      >Tardanza</label
+    >
+    <input
+      matInput
+      placeholder="Tardanza (true/false)"
+      formControlName="attendanceLate"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- studentId -->
+  <div>
+    <label for="studentId" class="text-white font-extrabold"
+      >ID de Estudiante</label
+    >
+    <input
+      matInput
+      type="number"
+      placeholder="ID de Estudiante"
+      formControlName="studentId"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- studentFirstName -->
+  <div>
+    <label for="studentFirstName" class="text-white font-extrabold"
+      >Nombre del Estudiante</label
+    >
+    <input
+      matInput
+      placeholder="Nombre del Estudiante"
+      formControlName="studentFirstName"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- studentLastName -->
+  <div>
+    <label for="studentLastName" class="text-white font-extrabold"
+      >Apellido del Estudiante</label
+    >
+    <input
+      matInput
+      placeholder="Apellido del Estudiante"
+      formControlName="studentLastName"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- studentFullName -->
+  <div>
+    <label for="studentFullName" class="text-white font-extrabold"
+      >Nombre Completo</label
+    >
+    <input
+      matInput
+      placeholder="Nombre Completo"
+      formControlName="studentFullName"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- classroomId -->
+  <div>
+    <label for="classroomId" class="text-white font-extrabold"
+      >ID del Aula</label
+    >
+    <input
+      matInput
+      type="number"
+      placeholder="ID del Aula"
+      formControlName="classroomId"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- classroomName -->
+  <div>
+    <label for="classroomName" class="text-white font-extrabold"
+      >Nombre del Aula</label
+    >
+    <input
+      matInput
+      placeholder="Nombre del Aula"
+      formControlName="classroomName"
+      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    />
+  </div>
+
+  <!-- Botones de acción -->
+  <div class="flex flex-wrap justify-center-safe gap-2 w-full">
+    <button
+      type="submit"
+      [disabled]="form.invalid"
+      class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#1eff00] duration-700"
+    >
+      <mat-icon>save</mat-icon>
+      <span>Save</span>
+    </button>
+
+    <button
+      type="button"
+      routerLink="/pages/model"
+      class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#7D1416] hover:text-white duration-700"
+    >
+      <mat-icon>cancel</mat-icon>
+      <span>Cancel</span>
+    </button>
+  </div>
+</form>

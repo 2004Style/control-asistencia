@@ -1,0 +1,42 @@
+<h2 class="text-2xl font-bold text-gray-700 mb-8 flex items-center">
+  <i class="fas fa-book-open mr-2 text-blue-400"></i>
+  Lista de Cursos
+</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  <a
+    *ngFor="let curso of cursos"
+    routerLink="/cursos/details/{{curso.idClassroom}}"
+    class="bg-white rounded-xl shadow neumorph-inset p-6 flex flex-col gap-3 border border-gray-100 transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
+  >
+    <div class="flex items-center mb-2">
+      <i class="fas fa-chalkboard-teacher text-blue-500 mr-2"></i>
+      <span class="text-lg font-semibold text-gray-800">{{
+        curso.subject.name
+      }}</span>
+    </div>
+    <div class="flex items-center text-gray-600">
+      <i class="fas fa-door-open mr-2 text-blue-400"></i>
+      <span><span class="font-semibold">Aula:</span> {{ curso.name }}</span>
+    </div>
+    <div class="flex items-center text-gray-600">
+      <i class="fas fa-clock mr-2 text-blue-400"></i>
+      <span><span class="font-semibold">Hora:</span>{{ curso.schedules?.[0].startTime.toLocaleString() }} - {{ curso.schedules?.[0].endTime.toLocaleString() }}</span>
+    </div>
+    <div class="flex items-center text-gray-600">
+      <i class="fas fa-calendar-alt mr-2 text-blue-400"></i>
+      <span><span class="font-semibold">Días:</span> {{ curso.schedules?.[0].dayOfWeek }}</span>
+    </div>
+    <div class="flex items-center text-gray-600">
+      <i class="fas fa-user-tie mr-2 text-blue-400"></i>
+      <span
+        ><span class="font-semibold">Docente:</span> {{ curso.teacher.fullName }}</span
+      >
+    </div>
+  </a>
+  <div
+    *ngIf="cursos.length === 0"
+    class="col-span-full text-center text-gray-400 py-8"
+  >
+    No hay cursos registrados.
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>{{ this.data.title }}</h2>
+
+<mat-dialog-content>
+  {{ this.data.body }} <strong>{{ this.data.id }}</strong>
+</mat-dialog-content>
+
+<div class="flex justify-end gap-2 p-2">
+  <button
+    class="rounded-2xl px-3 py-2 cursor-pointer border hover:bg-red-700 hover:text-amber-50"
+    [mat-dialog-close]="false"
+  >
+    No
+  </button>
+  <button
+    class="rounded-2xl px-3 py-2 cursor-pointer border hover:bg-lime-300"
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+  >
+    Ok
+  </button>
+</div>

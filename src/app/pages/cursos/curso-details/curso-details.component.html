@@ -1,0 +1,42 @@
+<div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-8 mt-8 neumorph">
+  <div class="flex items-center space-x-4 mb-6">
+    <div
+      class="bg-blue-100 rounded-full h-16 w-16 flex items-center justify-center"
+    >
+      <i class="fas fa-book text-3xl text-blue-500"></i>
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">{{curso.subject.name}}</h2>
+      <p class="text-gray-500">
+        Profesor: <span class="font-semibold">Nombre del Profesor</span>
+      </p>
+      <p class="text-gray-400 text-sm">
+        Horario: Lunes y Miércoles, 10:00 - 12:00
+      </p>
+    </div>
+  </div>
+  <div class="mb-6 grid grid-cols-2 gap-4">
+    <div class="bg-green-100 rounded-lg p-4 flex flex-col items-center">
+      <span class="text-3xl font-bold text-green-600">12</span>
+      <span class="text-gray-700">Asistencias</span>
+    </div>
+    <div class="bg-red-100 rounded-lg p-4 flex flex-col items-center">
+      <span class="text-3xl font-bold text-red-600">2</span>
+      <span class="text-gray-700">Faltas</span>
+    </div>
+  </div>
+  <div class="mb-4">
+    <h3 class="font-semibold text-gray-700 mb-2">Descripción</h3>
+    <p class="text-gray-600">
+      Aquí va la descripción del curso. Puedes mostrar información relevante
+      sobre el contenido, objetivos y requisitos.
+    </p>
+  </div>
+  <div class="flex justify-end mt-6">
+    <button
+      class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+    >
+      Ver Historial de Asistencias
+    </button>
+  </div>
+</div>

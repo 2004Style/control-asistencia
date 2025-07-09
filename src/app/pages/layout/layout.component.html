@@ -1,0 +1,128 @@
+<!-- Navbar -->
+<nav
+  class="flex items-center justify-between px-6 py-4 bg-white shadow-md rounded-b-2xl neumorph sticky h-[10vh]"
+>
+  <div class="flex items-center space-x-8">
+    <span class="text-xl font-bold text-gray-700">Control Asistencia</span>
+    <ul class="hidden md:flex items-center space-x-6 ml-6">
+      <li>
+        <a
+          routerLink="/cursos"
+          routerLinkActive="text-blue-500 font-semibold"
+          class="text-gray-600 hover:text-blue-500 transition cursor-pointer"
+          >Cursos</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/asistencia"
+          routerLinkActive="text-blue-500 font-semibold"
+          class="text-gray-600 hover:text-blue-500 transition cursor-pointer"
+          >Asistencia</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/estudiantes"
+          routerLinkActive="text-blue-500 font-semibold"
+          class="text-gray-600 hover:text-blue-500 transition cursor-pointer"
+          >Estudiantes</a
+        >
+      </li>
+      <!-- Agrega más enlaces si lo necesitas -->
+    </ul>
+  </div>
+  <div class="flex items-center space-x-4">
+    <button
+      class="text-gray-600 hover:text-blue-500 transition cursor-pointer"
+      title="Notificaciones"
+    >
+      <i class="fas fa-bell"></i>
+    </button>
+
+    <button
+      matIconButton
+      [matMenuTriggerFor]="menu"
+      class="text-gray-600 hover:text-blue-500 transition cursor-pointer"
+      title="Perfil de usuario"
+    >
+      <i class="fas fa-user-circle"></i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/cursos">
+        <mat-icon>assignment</mat-icon>
+        <span>Cursos estudiante</span>
+      </button>
+      <button mat-menu-item routerLink="/cursos-docente">
+        <mat-icon>assignment</mat-icon>
+        <span>cursos docente</span>
+      </button>
+      <button mat-menu-item routerLink="/perfil">
+        <mat-icon>assignment</mat-icon>
+        <span>perfil</span>
+      </button>
+      <button mat-menu-item routerLink="/auth/login">
+        <mat-icon>assignment</mat-icon>
+        <span>login</span>
+      </button>
+
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/assists-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>asistencias admin</span>
+      </button>
+      <button mat-menu-item routerLink="/attendances-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>asistencias admin</span>
+      </button>
+      <button mat-menu-item routerLink="/classrooms-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>clases admin</span>
+      </button>
+      <button mat-menu-item routerLink="/enrollments-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>inscripciones admin</span>
+      </button>
+      <button mat-menu-item routerLink="/people-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>personas admin</span>
+      </button>
+      <button mat-menu-item routerLink="/roles-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>roles admin</span>
+      </button>
+      <button mat-menu-item routerLink="/schemodules-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>horarios admin</span>
+      </button>
+      <button mat-menu-item routerLink="/students-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>estudiantes admin</span>
+      </button>
+      <button mat-menu-item routerLink="/subjects-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>materias admin</span>
+      </button>
+      <button mat-menu-item routerLink="/tardines-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>tardines admin</span>
+      </button>
+      <button mat-menu-item routerLink="/teachers-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>docentes admin</span>
+      </button>
+      <button mat-menu-item routerLink="/users-role-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>usuarios admin</span>
+      </button>
+      <button mat-menu-item routerLink="/users-admin">
+        <mat-icon>assignment</mat-icon>
+        <span>usuarios admin</span>
+      </button>
+    </mat-menu>
+  </div>
+</nav>
+
+<main class="p-6 overflow-auto h-[90vh]">
+  <router-outlet></router-outlet>
+</main>
