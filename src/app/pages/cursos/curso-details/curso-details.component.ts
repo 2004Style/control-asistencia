@@ -19,6 +19,7 @@ export class CursoDetailsComponent {
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this._service.findById(id).subscribe((data) => {
+        console.log('Curso details:', data);
         this.curso = data;
       });
     });

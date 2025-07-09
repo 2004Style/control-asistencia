@@ -7,6 +7,10 @@ export class ClassroomsDtoTs {
   teacherId: number;
   subjectId: number;
 
+  studentAbsentCount: number;
+  studentLateCount: number;
+  studentPresentCount: number;
+
   teacher: TeachersDtoTs = null;
   subject: SubjectsDtoTs = null;
   schedules: SchemodulesDtoTs[] = [];

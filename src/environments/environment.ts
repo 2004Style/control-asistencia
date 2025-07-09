@@ -1,3 +1,3 @@
 export const environment = {
-  HOST: 'http://localhost:3000',
+  HOST: 'https://backend-asistencia-455v.onrender.com',
 };

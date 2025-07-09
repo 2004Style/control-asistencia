@@ -1,6 +1,31 @@
 export class ClassroomsModelTs {
-  classroomId: number;
+  idClassroom: number;
   name: string;
-  id_subject: number;
-  id_teacher: number;
+  teacher: {
+    idTeacher: number;
+    firstName: string;
+    lastName: string;
+    fullName: string;
+    dni: string;
+    email: string;
+    phone: string;
+    birthdate: string;
+    gender: string;
+    address: string;
+  };
+  subject: {
+    idSubject: number;
+    name: string;
+  };
+  schedules: [
+    {
+      idSchedule: number;
+      dayOfWeek: string;
+      startTime: string;
+      endTime: string;
+    }
+  ];
+  studentPresentCount: number;
+  studentLateCount: number;
+  studentAbsentCount: number;
 }

@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { AsistenciaComponent } from './pages/asistencia/asistencia.component';
 import { CursosComponent } from './pages/cursos/cursos.component';
 import { CursoDetailsComponent } from './pages/cursos/curso-details/curso-details.component';
-import { CursosDocenteComponent } from './pages/profesor/cursos-docente/cursos-docente.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { RolesAdminComponent } from './pages/admin/roles-admin/roles-admin.component';
 import { RolesEditAdminComponent } from './pages/admin/roles-admin/roles-edit-admin/roles-edit-admin.component';
@@ -34,6 +33,7 @@ import { hasRoleGuard } from './core/guards/has-role.guard';
 import { authGuard } from './core/guards/auth.guard';
 import Login from './auth/login';
 import { ROLES } from './auth/roles.class';
+import TeacherCoursesComponent from './pages/profesor/teacher-courses/teacher-courses.component';
 
 const rutaBase = 'pages';
 
@@ -191,7 +191,7 @@ export const routes: Routes = [
   },
   {
     path: `cursos-docente`,
-    component: CursosDocenteComponent,
+    component: TeacherCoursesComponent,
     canActivate: [authGuard, hasRoleGuard([ROLES.TEACHER])],
   },
   {
