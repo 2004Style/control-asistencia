@@ -39,8 +39,21 @@ const rutaBase = 'pages';
 
 export const routes: Routes = [
   {
-    path: 'auth/login',
-    component: Login,
+    path: 'auth',
+    children: [
+      {
+        path: 'login',
+        loadComponent: () => import('./auth/login'),
+      },
+      {
+        path: 'register',
+        loadComponent: () => import('./auth/register'),
+      },
+      {
+        path: '**',
+        redirectTo: 'login',
+      },
+    ],
   },
   {
     path: `assists-admin`,
