@@ -1,4 +1,4 @@
-import { UserRoleDtoTs } from "../dtos/user-role.dto";
+import { ROLES } from './roles.class';
 
 export type AuthDtoTs = {
   username: string;
@@ -6,31 +6,36 @@ export type AuthDtoTs = {
 };
 
 export type AuthResponseDtoTs = {
+  idUser: number;
   username: string;
-  name: string;
-  email: string;
+  enabled: boolean;
   roles: UserRole[];
-  tokens:{
+  person: {
+    idPerson: number;
+    dni: string;
+    firstName: string;
+    lastName: string;
+    birthdate: string;
+    gender: string;
+    address: string;
+    phone: string;
+    email: string;
+  },
+  tokens: {
     userId: number;
     accessToken: string;
     refreshToken: string;
-    expiredAccessToken: string;
-    expiredRefreshToken: string;
-  }
+    accessTokenExpiry: string;
+    refreshTokenExpiry: string;
+  };
 };
 
-export const Roles = {
-  ADMIN: 'ADMIN',
-  USER: 'USER',
-  TEACHER: 'TEACHER',
-  STUDENT: 'STUDENT',
-};
-
-export type UserRole = 'admin' | 'sales' | 'manager';
+type RolesObject = typeof ROLES;
+export type UserRole = RolesObject[keyof RolesObject];
 
 export interface User {
   id: number;
   name: string;
   email: string;
-  roles: UserRoleDtoTs[];
+  roles: UserRole[];
 }

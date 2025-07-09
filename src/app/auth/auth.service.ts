@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthResponseDtoTs, User } from './auth.dto';
-import { BehaviorSubject, delay, of, tap } from 'rxjs';
+import { AuthResponseDtoTs, User, AuthDtoTs } from './auth.dto';
+import { BehaviorSubject, of, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 
 @Injectable({
@@ -10,9 +10,6 @@ import { environment } from '../../environments/environment.development';
 })
 export class AuthService {
   private url: string;
-  constructor(protected http: HttpClient) {
-    this.url = `${environment.HOST}/auth`;
-  }
   private _currentUser = new BehaviorSubject<AuthResponseDtoTs | null>(
     this.decodeToken()
   );
@@ -21,25 +18,52 @@ export class AuthService {
 
   router = inject(Router);
 
-  login(email: string) {
-    this.http.post(`${this.url}/login`, { email }).subscribe({
-      next: (response: AuthResponseDtoTs) => {
+  constructor(private http: HttpClient) {
+    this.url = `${environment.HOST}/auth`;
+  }
+
+  login(authDto: AuthDtoTs) {
+    return this.http.post<AuthResponseDtoTs>(`${this.url}/login`, authDto).pipe(
+      tap((response) => {
         this.saveToken(response);
+        console.log('Login successful:', response);
         this._currentUser.next(response);
         this.router.navigateByUrl('/');
-      },
-      error: (error) => {
-        console.error('Login failed', error);
-        this.removeToken();
-        this._currentUser.next(null);
-        this.router.navigateByUrl('/auth/login');
-      },
-    });
+      })
+    );
   }
 
   logout() {
     this.removeToken();
+    this._currentUser.next(null);
     this.router.navigateByUrl('/auth/login');
+  }
+
+  refreshToken() {
+    const refreshToken = this.getRefreshToken();
+    if (!refreshToken) {
+      this.logout();
+      return throwError(() => new Error('No refresh token'));
+    }
+
+    return this.http
+      .post<AuthResponseDtoTs>(`${this.url}/refresh`, { refreshToken })
+      .pipe(
+        tap((response) => {
+          this.saveToken(response);
+          this._currentUser.next(response);
+        })
+      );
+  }
+
+  getAccessToken() {
+    const user = this._currentUser.value;
+    return user?.tokens.accessToken;
+  }
+
+  getRefreshToken() {
+    const user = this._currentUser.value;
+    return user?.tokens.refreshToken;
   }
 
   private saveToken(user: AuthResponseDtoTs) {
@@ -50,9 +74,17 @@ export class AuthService {
     localStorage.removeItem('userData');
   }
 
-  private decodeToken() {
+  private decodeToken(): AuthResponseDtoTs | null {
     const userData = localStorage.getItem('userData');
+    if (!userData) return null;
 
-    return userData ? JSON.parse(userData) : null;
+    const user: AuthResponseDtoTs = JSON.parse(userData);
+
+    if (new Date(user.tokens.refreshTokenExpiry) < new Date()) {
+      this.removeToken();
+      return null;
+    }
+
+    return user;
   }
 }

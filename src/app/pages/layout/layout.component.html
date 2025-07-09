@@ -4,8 +4,11 @@
 >
   <div class="flex items-center space-x-8">
     <span class="text-xl font-bold text-gray-700">Control Asistencia</span>
-    <ul class="hidden md:flex items-center space-x-6 ml-6">
-      <li>
+    <ul
+      class="hidden md:flex items-center space-x-6 ml-6"
+      *ngIf="currentUser()"
+    >
+      <li *hasRole="['STUDENT']">
         <a
           routerLink="/cursos"
           routerLinkActive="text-blue-500 font-semibold"
@@ -13,7 +16,7 @@
           >Cursos</a
         >
       </li>
-      <li>
+      <li *hasRole="['TEACHER']">
         <a
           routerLink="/asistencia"
           routerLinkActive="text-blue-500 font-semibold"
@@ -21,7 +24,7 @@
           >Asistencia</a
         >
       </li>
-      <li>
+      <li *hasRole="['ADMIN']">
         <a
           routerLink="/estudiantes"
           routerLinkActive="text-blue-500 font-semibold"
@@ -34,6 +37,7 @@
   </div>
   <div class="flex items-center space-x-4">
     <button
+      *ngIf="currentUser()"
       class="text-gray-600 hover:text-blue-500 transition cursor-pointer"
       title="Notificaciones"
     >
@@ -41,6 +45,7 @@
     </button>
 
     <button
+      *ngIf="currentUser()"
       matIconButton
       [matMenuTriggerFor]="menu"
       class="text-gray-600 hover:text-blue-500 transition cursor-pointer"
@@ -49,11 +54,11 @@
       <i class="fas fa-user-circle"></i>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/cursos">
+      <button mat-menu-item routerLink="/cursos" *hasRole="['STUDENT']">
         <mat-icon>assignment</mat-icon>
         <span>Cursos estudiante</span>
       </button>
-      <button mat-menu-item routerLink="/cursos-docente">
+      <button mat-menu-item routerLink="/cursos-docente" *hasRole="['TEACHER']">
         <mat-icon>assignment</mat-icon>
         <span>cursos docente</span>
       </button>
@@ -61,64 +66,70 @@
         <mat-icon>assignment</mat-icon>
         <span>perfil</span>
       </button>
-      <button mat-menu-item routerLink="/auth/login">
-        <mat-icon>assignment</mat-icon>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+      <button mat-menu-item routerLink="/auth/login" *ngIf="!currentUser()">
+        <mat-icon>login</mat-icon>
         <span>login</span>
       </button>
 
-      <mat-divider></mat-divider>
-      <button mat-menu-item routerLink="/assists-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>asistencias admin</span>
-      </button>
-      <button mat-menu-item routerLink="/attendances-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>asistencias admin</span>
-      </button>
-      <button mat-menu-item routerLink="/classrooms-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>clases admin</span>
-      </button>
-      <button mat-menu-item routerLink="/enrollments-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>inscripciones admin</span>
-      </button>
-      <button mat-menu-item routerLink="/people-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>personas admin</span>
-      </button>
-      <button mat-menu-item routerLink="/roles-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>roles admin</span>
-      </button>
-      <button mat-menu-item routerLink="/schemodules-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>horarios admin</span>
-      </button>
-      <button mat-menu-item routerLink="/students-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>estudiantes admin</span>
-      </button>
-      <button mat-menu-item routerLink="/subjects-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>materias admin</span>
-      </button>
-      <button mat-menu-item routerLink="/tardines-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>tardines admin</span>
-      </button>
-      <button mat-menu-item routerLink="/teachers-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>docentes admin</span>
-      </button>
-      <button mat-menu-item routerLink="/users-role-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>usuarios admin</span>
-      </button>
-      <button mat-menu-item routerLink="/users-admin">
-        <mat-icon>assignment</mat-icon>
-        <span>usuarios admin</span>
-      </button>
+      <ng-container *hasRole="['ADMIN']">
+        <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="/assists-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>asistencias admin</span>
+        </button>
+        <button mat-menu-item routerLink="/attendances-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>asistencias admin</span>
+        </button>
+        <button mat-menu-item routerLink="/classrooms-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>clases admin</span>
+        </button>
+        <button mat-menu-item routerLink="/enrollments-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>inscripciones admin</span>
+        </button>
+        <button mat-menu-item routerLink="/people-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>personas admin</span>
+        </button>
+        <button mat-menu-item routerLink="/roles-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>roles admin</span>
+        </button>
+        <button mat-menu-item routerLink="/schemodules-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>horarios admin</span>
+        </button>
+        <button mat-menu-item routerLink="/STUDENTs-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>estudiantes admin</span>
+        </button>
+        <button mat-menu-item routerLink="/subjects-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>materias admin</span>
+        </button>
+        <button mat-menu-item routerLink="/tardines-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>tardines admin</span>
+        </button>
+        <button mat-menu-item routerLink="/teachers-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>docentes admin</span>
+        </button>
+        <button mat-menu-item routerLink="/users-role-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>usuarios admin</span>
+        </button>
+        <button mat-menu-item routerLink="/users-admin">
+          <mat-icon>assignment</mat-icon>
+          <span>usuarios admin</span>
+        </button>
+      </ng-container>
     </mat-menu>
   </div>
 </nav>

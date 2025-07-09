@@ -16,7 +16,7 @@ import { EnrollmentsAdminComponent } from './pages/admin/enrollments-admin/enrol
 import { EnrollmentsEditAdminComponent } from './pages/admin/enrollments-admin/enrollments-edit-admin/enrollments-edit-admin.component';
 import { PeopleAdminComponent } from './pages/admin/people-admin/people-admin.component';
 import { PeopleEditAdminComponent } from './pages/admin/people-admin/people-edit-admin/people-edit-admin.component';
-import {  SchemodulesAdminComponent } from './pages/admin/schedules-admin/schedules-admin.component';
+import { SchemodulesAdminComponent } from './pages/admin/schedules-admin/schedules-admin.component';
 import { SchemodulesEditAdminComponent } from './pages/admin/schedules-admin/schedules-edit-admin/schedules-edit-admin.component';
 import { StudentsAdminComponent } from './pages/admin/students-admin/students-admin.component';
 import { StudentsEditAdminComponent } from './pages/admin/students-admin/students-edit-admin/students-edit-admin.component';
@@ -30,13 +30,22 @@ import { UserRoleAdminComponent } from './pages/admin/user-role-admin/user-role-
 import { UserRoleEditAdminComponent } from './pages/admin/user-role-admin/user-role-edit-admin/user-role-edit-admin.component';
 import { UsersAdminComponent } from './pages/admin/users-admin/users-admin.component';
 import { UsersEditAdminComponent } from './pages/admin/users-admin/users-edit-admin/users-edit-admin.component';
+import { hasRoleGuard } from './core/guards/has-role.guard';
+import { authGuard } from './core/guards/auth.guard';
+import Login from './auth/login';
+import { ROLES } from './auth/roles.class';
 
 const rutaBase = 'pages';
 
 export const routes: Routes = [
   {
+    path: 'auth/login',
+    component: Login,
+  },
+  {
     path: `assists-admin`,
     component: AssistsAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: AssistsEditAdminComponent },
       { path: 'edit/:id', component: AssistsEditAdminComponent },
@@ -45,6 +54,7 @@ export const routes: Routes = [
   {
     path: `attendances-admin`,
     component: AttendancesAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: AttendancesEditAdminComponent },
       { path: 'edit/:id', component: AttendancesEditAdminComponent },
@@ -53,6 +63,7 @@ export const routes: Routes = [
   {
     path: `classrooms-admin`,
     component: ClassroomsAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: ClassroomsEditAdminComponent },
       { path: 'edit/:id', component: ClassroomsEditAdminComponent },
@@ -61,6 +72,7 @@ export const routes: Routes = [
   {
     path: `enrollments-admin`,
     component: EnrollmentsAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: EnrollmentsEditAdminComponent },
       { path: 'edit/:id', component: EnrollmentsEditAdminComponent },
@@ -69,6 +81,7 @@ export const routes: Routes = [
   {
     path: `people-admin`,
     component: PeopleAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: PeopleEditAdminComponent },
       { path: 'edit/:id', component: PeopleEditAdminComponent },
@@ -77,6 +90,7 @@ export const routes: Routes = [
   {
     path: `roles-admin`,
     component: RolesAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: RolesEditAdminComponent },
       { path: 'edit/:id', component: RolesEditAdminComponent },
@@ -85,6 +99,7 @@ export const routes: Routes = [
   {
     path: `schemodules-admin`,
     component: SchemodulesAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: SchemodulesEditAdminComponent },
       { path: 'edit/:id', component: SchemodulesEditAdminComponent },
@@ -93,6 +108,7 @@ export const routes: Routes = [
   {
     path: `students-admin`,
     component: StudentsAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: StudentsEditAdminComponent },
       { path: 'edit/:id', component: StudentsEditAdminComponent },
@@ -101,6 +117,7 @@ export const routes: Routes = [
   {
     path: `subjects-admin`,
     component: SubjectsAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: SubjectsEditAdminComponent },
       { path: 'edit/:id', component: SubjectsEditAdminComponent },
@@ -109,6 +126,7 @@ export const routes: Routes = [
   {
     path: `tardines-admin`,
     component: TardinessAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: TardinessEditAdminComponent },
       { path: 'edit/:id', component: TardinessEditAdminComponent },
@@ -117,6 +135,7 @@ export const routes: Routes = [
   {
     path: `teachers-admin`,
     component: TeachersAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: TeachersEditAdminComponent },
       { path: 'edit/:id', component: TeachersEditAdminComponent },
@@ -125,6 +144,7 @@ export const routes: Routes = [
   {
     path: `user-role-admin`,
     component: UserRoleAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: UserRoleEditAdminComponent },
       { path: 'edit/:id', component: UserRoleEditAdminComponent },
@@ -133,6 +153,7 @@ export const routes: Routes = [
   {
     path: `users-admin`,
     component: UsersAdminComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.ADMIN])],
     children: [
       { path: 'new', component: UsersEditAdminComponent },
       { path: 'edit/:id', component: UsersEditAdminComponent },
@@ -142,22 +163,27 @@ export const routes: Routes = [
   {
     path: `cursos`,
     component: CursosComponent,
+    canActivate: [authGuard],
   },
   {
     path: `cursos/details/:id`,
     component: CursoDetailsComponent,
+    canActivate: [authGuard],
   },
   //rutas para el dicente
   {
     path: `curso/asistencia/:id`,
     component: AsistenciaComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.TEACHER])],
   },
   {
     path: `cursos-docente`,
     component: CursosDocenteComponent,
+    canActivate: [authGuard, hasRoleGuard([ROLES.TEACHER])],
   },
   {
     path: `perfil`,
     component: PerfilComponent,
+    canActivate: [authGuard],
   },
 ];

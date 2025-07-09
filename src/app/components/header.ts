@@ -5,9 +5,11 @@ import { AuthService } from '../auth/auth.service';
 import HeaderSelector from './header-selector';
 import { HasRoleDirective } from '../core/hasRole.directive';
 import { User, UserRole } from '../auth/auth.dto';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   template: `
     <header class="max-w-screen-lg mx-auto p-4">
       <div class="flex items-center justify-between">
@@ -22,7 +24,7 @@ import { User, UserRole } from '../auth/auth.dto';
           >
 
           <a
-            *hasRole="['sales', 'admin']"
+            *hasRole="[ 'ADMIN']"
             routerLinkActive="text-indigo-600"
             routerLink="/orders"
           >
@@ -30,14 +32,14 @@ import { User, UserRole } from '../auth/auth.dto';
           </a>
 
           <a
-            *hasRole="['manager', 'admin']"
+            *hasRole="[ 'ADMIN']"
             routerLinkActive="text-indigo-600"
             routerLink="/reports"
           >
             Reportes
           </a>
           <a
-            *hasRole="['admin']"
+            *hasRole="['ADMIN']"
             routerLinkActive="text-indigo-600"
             routerLink="/admin"
             >Admin</a
@@ -45,6 +47,7 @@ import { User, UserRole } from '../auth/auth.dto';
         </nav>
 
         <app-header-selector
+          *ngIf="currentUser()"
           (logout)="logout()"
           (userChanged)="selectedUser($event)"
           [currentUser]="currentUser()"
@@ -53,24 +56,34 @@ import { User, UserRole } from '../auth/auth.dto';
       </div>
     </header>
   `,
-  imports: [RouterLink, HeaderSelector, RouterLinkActive, HasRoleDirective],
+  imports: [
+    RouterLink,
+    HeaderSelector,
+    RouterLinkActive,
+    HasRoleDirective,
+    NgIf,
+  ],
 })
 export default class Header {
   private _authService = inject(AuthService);
 
   currentUser = toSignal(this._authService.currentUser$);
 
-  users = signal(users);
+  users = signal<User[]>([]); // Assuming you have a way to get all users
 
   logout() {
     this._authService.logout();
   }
 
   selectedUser(user: User) {
-    this._authService.login(user.email);
+    // This logic might need adjustment based on your app's flow
+    // For now, it's commented out as direct user switching might not be desired.
+    // this._authService.login(user.email);
   }
 
   hasRole(roles: UserRole[]) {
-    return this.currentUser()?.roles.some((role) => roles.includes(role));
+    const user = this.currentUser();
+    if (!user) return false;
+    return user.roles.some((role) => roles.includes(role));
   }
 }

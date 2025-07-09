@@ -8,10 +8,11 @@ import {
 } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { User, UserRole } from '../auth/auth.dto';
+import { AuthResponseDtoTs, User, UserRole } from '../auth/auth.dto';
 
 @Directive({
   selector: '[hasRole]',
+  standalone: true,
 })
 export class HasRoleDirective {
   private templateRef = inject(TemplateRef);
@@ -36,7 +37,7 @@ export class HasRoleDirective {
     });
   }
 
-  hasRole(user: User, roles: UserRole[]) {
+  hasRole(user: AuthResponseDtoTs, roles: UserRole[]) {
     return user.roles.some((role) => roles.includes(role));
   }
 }
