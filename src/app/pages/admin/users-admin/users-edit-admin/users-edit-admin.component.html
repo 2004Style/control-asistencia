@@ -4,49 +4,53 @@
   (submit)="operate()"
   class="relative flex flex-col gap-3 w-full p-3 rounded bg-[#034561]"
 >
-  <div [hidden]="true">
-    <label for="id_role" class="text-white font-extrabold">Id</label>
-    <input
-      matInput
-      placeholder="id"
-      formControlName="id_role"
-      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
-    />
+  <input type="hidden" formControlName="id_user" />
+
+  <label for="username" class="text-white font-extrabold">Username</label>
+  <input
+    matInput
+    placeholder="Username"
+    formControlName="username"
+    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+  />
+
+  <label for="password" class="text-white font-extrabold">Password</label>
+  <input
+    matInput
+    type="password"
+    placeholder="Password"
+    formControlName="password"
+    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+  />
+
+  <mat-slide-toggle formControlName="enabled" class="text-white"
+    >Enabled</mat-slide-toggle
+  >
+
+  <label class="text-white font-extrabold">Roles</label>
+  <div formArrayName="roles" class="flex flex-col gap-2">
+    <div *ngFor="let role of roles; let i = index">
+      <mat-checkbox [formControlName]="i">{{ role.name }}</mat-checkbox>
+    </div>
   </div>
-
-  <label for="name" class="text-white font-extrabold">Nombre</label>
-  <input
-    matInput
-    placeholder="name"
-    formControlName="name"
-    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
-  />
-
-  <label for="description" class="text-white font-extrabold">Descripción</label>
-  <input
-    matInput
-    placeholder="description"
-    formControlName="description"
-    required
-    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
-  />
 
   <div class="flex flex-wrap justify-center-safe gap-2 w-full">
     <button
       type="submit"
-      class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#1eff00] duration-700"
+      [disabled]="form.invalid"
+      class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#1eff00] duration-700 disabled:bg-gray-500"
     >
       <mat-icon>save</mat-icon>
-      <span>Save</span>
+      <span>Guardar</span>
     </button>
 
     <button
       type="button"
-      routerLink="/pages/model"
+      routerLink="/pages/admin/users"
       class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#7D1416] hover:text-white duration-700"
     >
       <mat-icon>cancel</mat-icon>
-      <span>Cancel</span>
+      <span>Cancelar</span>
     </button>
   </div>
 </form>

@@ -4,49 +4,101 @@
   (submit)="operate()"
   class="relative flex flex-col gap-3 w-full p-3 rounded bg-[#034561]"
 >
-  <div [hidden]="true">
-    <label for="id_role" class="text-white font-extrabold">Id</label>
-    <input
-      matInput
-      placeholder="id"
-      formControlName="id_role"
-      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
-    />
-  </div>
+  <input type="hidden" formControlName="idStudent" />
 
-  <label for="name" class="text-white font-extrabold">Nombre</label>
+  <label for="firstName" class="text-white font-extrabold">Nombres</label>
   <input
     matInput
-    placeholder="name"
-    formControlName="name"
+    placeholder="Nombres"
+    formControlName="firstName"
     class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="Nombres"
   />
 
-  <label for="description" class="text-white font-extrabold">Descripción</label>
+  <label for="lastName" class="text-white font-extrabold">Apellidos</label>
   <input
     matInput
-    placeholder="description"
-    formControlName="description"
-    required
+    placeholder="Apellidos"
+    formControlName="lastName"
     class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="Apellidos"
+  />
+
+  <label for="dni" class="text-white font-extrabold">DNI</label>
+  <input
+    matInput
+    placeholder="DNI"
+    formControlName="dni"
+    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="DNI"
+  />
+
+  <label for="email" class="text-white font-extrabold">Email</label>
+  <input
+    matInput
+    type="email"
+    placeholder="Email"
+    formControlName="email"
+    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="Email"
+  />
+
+  <label for="phone" class="text-white font-extrabold">Teléfono</label>
+  <input
+    matInput
+    placeholder="Teléfono"
+    formControlName="phone"
+    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="Teléfono"
+  />
+
+  <label for="birthdate" class="text-white font-extrabold"
+    >Fecha de Nacimiento</label
+  >
+  <input
+    matInput
+    type="date"
+    formControlName="birthdate"
+    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="Fecha de Nacimiento"
+  />
+
+  <label for="gender" class="text-white font-extrabold">Género</label>
+  <select
+    formControlName="gender"
+    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="Género"
+  >
+    <option value="M">Masculino</option>
+    <option value="F">Femenino</option>
+  </select>
+
+  <label for="address" class="text-white font-extrabold">Dirección</label>
+  <input
+    matInput
+    placeholder="Dirección"
+    formControlName="address"
+    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="Dirección"
   />
 
   <div class="flex flex-wrap justify-center-safe gap-2 w-full">
     <button
       type="submit"
-      class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#1eff00] duration-700"
+      [disabled]="form.invalid"
+      class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#1eff00] duration-700 disabled:bg-gray-500"
     >
       <mat-icon>save</mat-icon>
-      <span>Save</span>
+      <span>Guardar</span>
     </button>
 
     <button
       type="button"
-      routerLink="/pages/model"
+      routerLink="/pages/admin/students"
       class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#7D1416] hover:text-white duration-700"
     >
       <mat-icon>cancel</mat-icon>
-      <span>Cancel</span>
+      <span>Cancelar</span>
     </button>
   </div>
 </form>

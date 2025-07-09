@@ -45,34 +45,22 @@ export class SchemodulesEditAdminComponent {
   ) {}
 
   ngOnInit(): void {
-    this._service
-      .findAll()
-      .toPromise()
-      .then(() => {
-        const model = new SchemodulesDtoTs();
-        const formControlsConfig: { [key: string]: any } = {};
+    this.form = this.fb.group({
+      idSchedule: [0],
+      dayOfWeek: ['', [Validators.required]],
+      startTime: ['', [Validators.required]],
+      endTime: ['', [Validators.required]],
+      classroom: [null],
+      subject: [null],
+    });
 
-        for (const key of Object.keys(model)) {
-          // Por defecto, un control vacío sin validadores
-          const control = [''];
-          // Añadir validadores a campos específicos
-          // if (key === 'name') {
-          //   control.push(Validators.required);
-          // }
-          formControlsConfig[key] = control;
-        }
-
-        this.form = this.fb.group(formControlsConfig);
-
-        this.route.params.subscribe((data) => {
-          this.id = data['id'];
-          this.isEdit = data['id'] != null;
-          this.initForm();
-        });
-      })
-      .catch((error) => {
-        console.error('Error cargando datos:', error);
-      });
+    this.route.params.subscribe((data) => {
+      this.id = data['id'];
+      this.isEdit = data['id'] != null;
+      if (this.isEdit) {
+        this.initForm();
+      }
+    });
   }
 
   initForm() {

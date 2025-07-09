@@ -44,34 +44,19 @@ export class RolesEditAdminComponent {
   ) {}
 
   ngOnInit(): void {
-    this._service
-      .findAll()
-      .toPromise()
-      .then(() => {
-        const model = new RolesDtoTs();
-        const formControlsConfig: { [key: string]: any } = {};
+    this.form = this.fb.group({
+      idRole: [0],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(100)]],
+    });
 
-        for (const key of Object.keys(model)) {
-          // Por defecto, un control vacío sin validadores
-          const control = [''];
-          // Añadir validadores a campos específicos
-          // if (key === 'name') {
-          //   control.push(Validators.required);
-          // }
-          formControlsConfig[key] = control;
-        }
-
-        this.form = this.fb.group(formControlsConfig);
-
-        this.route.params.subscribe((data) => {
-          this.id = data['id'];
-          this.isEdit = data['id'] != null;
-          this.initForm();
-        });
-      })
-      .catch((error) => {
-        console.error('Error cargando datos:', error);
-      });
+    this.route.params.subscribe((data) => {
+      this.id = data['id'];
+      this.isEdit = data['id'] != null;
+      if (this.isEdit) {
+        this.initForm();
+      }
+    });
   }
 
   initForm() {

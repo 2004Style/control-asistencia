@@ -4,49 +4,62 @@
   (submit)="operate()"
   class="relative flex flex-col gap-3 w-full p-3 rounded bg-[#034561]"
 >
-  <div [hidden]="true">
-    <label for="id_role" class="text-white font-extrabold">Id</label>
-    <input
-      matInput
-      placeholder="id"
-      formControlName="id_role"
-      class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
-    />
-  </div>
+  <input type="hidden" formControlName="idSchedule" />
 
-  <label for="name" class="text-white font-extrabold">Nombre</label>
+  <label for="dayOfWeek" class="text-white font-extrabold"
+    >Día de la Semana</label
+  >
+  <select
+    formControlName="dayOfWeek"
+    class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="Día de la Semana"
+  >
+    <option value="MONDAY">Lunes</option>
+    <option value="TUESDAY">Martes</option>
+    <option value="WEDNESDAY">Miércoles</option>
+    <option value="THURSDAY">Jueves</option>
+    <option value="FRIDAY">Viernes</option>
+    <option value="SATURDAY">Sábado</option>
+    <option value="SUNDAY">Domingo</option>
+  </select>
+
+  <label for="startTime" class="text-white font-extrabold"
+    >Hora de Inicio</label
+  >
   <input
     matInput
-    placeholder="name"
-    formControlName="name"
+    type="time"
+    formControlName="startTime"
     class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="Hora de Inicio"
   />
 
-  <label for="description" class="text-white font-extrabold">Descripción</label>
+  <label for="endTime" class="text-white font-extrabold">Hora de Fin</label>
   <input
     matInput
-    placeholder="description"
-    formControlName="description"
-    required
+    type="time"
+    formControlName="endTime"
     class="outline-none w-full rounded p-2 bg-[#128494] focus:text-white"
+    aria-label="Hora de Fin"
   />
 
   <div class="flex flex-wrap justify-center-safe gap-2 w-full">
     <button
       type="submit"
-      class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#1eff00] duration-700"
+      [disabled]="form.invalid"
+      class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#1eff00] duration-700 disabled:bg-gray-500"
     >
       <mat-icon>save</mat-icon>
-      <span>Save</span>
+      <span>Guardar</span>
     </button>
 
     <button
       type="button"
-      routerLink="/pages/model"
+      routerLink="/pages/admin/schedules"
       class="flex flex-1 items-center justify-center gap-2 rounded p-2 cursor-pointer bg-[#128494] hover:bg-[#7D1416] hover:text-white duration-700"
     >
       <mat-icon>cancel</mat-icon>
-      <span>Cancel</span>
+      <span>Cancelar</span>
     </button>
   </div>
 </form>

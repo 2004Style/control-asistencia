@@ -44,34 +44,26 @@ export class PeopleEditAdminComponent {
   ) {}
 
   ngOnInit(): void {
-    this._service
-      .findAll()
-      .toPromise()
-      .then(() => {
-        const model = new PeopleDtoTs();
-        const formControlsConfig: { [key: string]: any } = {};
+    this.form = this.fb.group({
+      idPerson: [0],
+      dni: ['', [Validators.required, Validators.maxLength(8)]],
+      firstName: ['', [Validators.required, Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.maxLength(50)]],
+      birthdate: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      address: ['', [Validators.maxLength(100)]],
+      phone: ['', [Validators.maxLength(15)]],
+      email: ['', [Validators.required, Validators.email]],
+      userId: [null],
+    });
 
-        for (const key of Object.keys(model)) {
-          // Por defecto, un control vacío sin validadores
-          const control = [''];
-          // Añadir validadores a campos específicos
-          // if (key === 'name') {
-          //   control.push(Validators.required);
-          // }
-          formControlsConfig[key] = control;
-        }
-
-        this.form = this.fb.group(formControlsConfig);
-
-        this.route.params.subscribe((data) => {
-          this.id = data['id'];
-          this.isEdit = data['id'] != null;
-          this.initForm();
-        });
-      })
-      .catch((error) => {
-        console.error('Error cargando datos:', error);
-      });
+    this.route.params.subscribe((data) => {
+      this.id = data['id'];
+      this.isEdit = data['id'] != null;
+      if (this.isEdit) {
+        this.initForm();
+      }
+    });
   }
 
   initForm() {
