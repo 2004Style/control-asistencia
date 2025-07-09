@@ -13,41 +13,41 @@ export default class Login {
   _authService = inject(AuthService);
 
   form = this._formBuilder.group({
-    email: this._formBuilder.control('', [
-      Validators.required,
-      Validators.email,
-    ]),
+    usernameOrEmail: this._formBuilder.control('', [Validators.required]),
     password: this._formBuilder.control('', Validators.required),
     remember: this._formBuilder.control(false),
   });
 
   constructor() {
-    const rememberedEmail = localStorage.getItem('rememberedEmail');
-    if (rememberedEmail) {
-      this.form.patchValue({ email: rememberedEmail, remember: true });
+    const rememberedUser = localStorage.getItem('rememberedUser');
+    if (rememberedUser) {
+      this.form.patchValue({ usernameOrEmail: rememberedUser, remember: true });
     }
   }
 
   login() {
     if (!this.form.valid) {
       console.log('Form is invalid');
-      console.log('Email errors:', this.form.get('email')?.errors);
+      console.log(
+        'Username/Email errors:',
+        this.form.get('usernameOrEmail')?.errors
+      );
       console.log('Password errors:', this.form.get('password')?.errors);
       this.form.markAllAsTouched(); // Marca todos los campos como "tocados" para mostrar errores
       return;
     }
     console.log('Form submitted:', this.form.value);
 
-    const { email, password, remember } = this.form.getRawValue();
+    const { usernameOrEmail, password, remember } = this.form.getRawValue();
 
     if (remember) {
-      localStorage.setItem('rememberedEmail', email!);
+      localStorage.setItem('rememberedUser', usernameOrEmail!);
     } else {
-      localStorage.removeItem('rememberedEmail');
+      localStorage.removeItem('rememberedUser');
     }
 
     this._authService
-      .login({ username: email!, password: password! })
+      .login({ username: usernameOrEmail!, password: password! })
       .subscribe({
         error: (err) => {
           // Handle login error

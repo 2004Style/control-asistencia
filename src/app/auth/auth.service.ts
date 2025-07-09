@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthResponseDtoTs, User, AuthDtoTs } from './auth.dto';
+import { AuthResponseDtoTs, User, AuthDtoTs, RegisterUser } from './auth.dto';
 import { BehaviorSubject, of, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 
@@ -20,6 +20,17 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this.url = `${environment.HOST}/auth`;
+  }
+
+  register(data: RegisterUser){
+    return this.http.post<AuthResponseDtoTs>(`${this.url}/register`, data).pipe(
+      tap((response) => {
+        this.saveToken(response);
+        console.log('Registration successful:', response);
+        this._currentUser.next(response);
+        this.router.navigateByUrl('/');
+      })
+    );
   }
 
   login(authDto: AuthDtoTs) {

@@ -20,7 +20,7 @@ export type AuthResponseDtoTs = {
     address: string;
     phone: string;
     email: string;
-  },
+  };
   tokens: {
     userId: number;
     accessToken: string;
@@ -38,4 +38,18 @@ export interface User {
   name: string;
   email: string;
   roles: UserRole[];
+}
+
+export interface RegisterUser {
+  username: string;
+  password: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  dni: string;
+  birthdate: Date;
+  gender: string;
+  address: string;
+  phone: string;
+  roleName: string;
 }
