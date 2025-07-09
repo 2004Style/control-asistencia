@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { PeopleModelTs } from '../../models/people.model';
-import { RolesModelTs } from '../../models/roles.model';
 import { NgClass } from '@angular/common';
+import { UsersService } from '../../services/users.service';
+import { UsersDtoTs } from '../../dtos/users.dto';
 
 @Component({
   selector: 'app-perfil',
@@ -10,22 +10,12 @@ import { NgClass } from '@angular/common';
   styleUrl: './perfil.component.css',
 })
 export class PerfilComponent {
-  perfil: PeopleModelTs = {
-    idPerson: 1,
-    address: 'Av. Principal 123',
-    birthdate: new Date(1990, 5, 15),
-    dni: '12345678',
-    email: 'usuario@correo.com',
-    firstName: 'Juan',
-    gender: 'Masculino',
-    lastName: 'Pérez',
-    phone: '987654321',
-    id_user: 1,
-  };
+  perfil: UsersDtoTs = new UsersDtoTs();
+  constructor(private readonly _service: UsersService) {}
 
-  rol: RolesModelTs = {
-    id_role: 2,
-    description: 'Profesor',
-    name: 'profesor',
-  };
+  ngOnInit(): void {
+    this._service.getProfile().subscribe((response) => {
+      this.perfil = response;
+    });
+  }
 }

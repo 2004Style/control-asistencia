@@ -1,14 +1,13 @@
 export class PeopleDtoTs {
   idPerson: number;
-  address: string;
-  birthdate: Date;
   dni: string;
-  email: string;
   firstName: string;
-  gender: string;
   lastName: string;
+  birthdate: Date;
+  gender: string;
+  address: string;
   phone: string;
-  id_user: number;
+  email: string;
 
   constructor(init?: Partial<PeopleDtoTs>) {
     Object.assign(this, init);

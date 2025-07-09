@@ -11,4 +11,8 @@ export class UsersService extends GenericService<UsersDtoTs> {
   constructor(http: HttpClient) {
     super(http, 'users');
   }
+
+  getProfile(){
+    return this.http.get<UsersDtoTs>(`${this.getUrl()}/profile`);
+  }
 }
