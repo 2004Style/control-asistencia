@@ -14,3 +14,14 @@ export class AttendancesDtoTs {
     Object.assign(this, init);
   }
 }
+
+export interface StudentAttendance {
+  studentId: number;
+  isPresent: boolean;
+}
+
+export interface AttendancePayload {
+  classroomId: number;
+  scheduleId: number;
+  students: StudentAttendance[];
+}

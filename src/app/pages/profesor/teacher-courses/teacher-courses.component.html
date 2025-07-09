@@ -1,0 +1,53 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Mis Cursos</h1>
+  <div
+    *ngIf="courses.length > 0; else noCourses"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+  >
+    <div
+      *ngFor="let course of courses"
+      class="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-1 transition-transform duration-300"
+    >
+      <div class="p-6">
+        <h2 class="text-xl font-semibold text-gray-700 mb-2">
+          {{ course.name }}
+        </h2>
+        <div *ngIf="course.schedules && course.schedules.length > 0">
+          <h3 class="text-md font-medium text-gray-600 mt-4 mb-2">Horarios:</h3>
+          <ul>
+            <li
+              *ngFor="let schedule of course.schedules"
+              class="text-sm text-gray-500 mb-2 border-l-4 border-blue-500 pl-3"
+            >
+              <p><strong>Día:</strong> {{ schedule.dayOfWeek }}</p>
+              <p>
+                <strong>Hora:</strong> {{ schedule.startTime }} -
+                {{ schedule.endTime }}
+              </p>
+              <a
+                [routerLink]="['/profesor/asistencia', schedule.idSchedule]"
+                [queryParams]="{ classroomId: course.idClassroom }"
+                class="mt-2 inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+              >
+                Registrar Asistencia
+              </a>
+            </li>
+          </ul>
+        </div>
+        <p
+          *ngIf="!course.schedules || course.schedules.length === 0"
+          class="text-sm text-gray-400 mt-4"
+        >
+          No hay horarios asignados para este curso.
+        </p>
+      </div>
+    </div>
+  </div>
+  <ng-template #noCourses>
+    <div class="text-center py-16">
+      <p class="text-gray-500 text-lg">
+        No tienes cursos asignados en este momento.
+      </p>
+    </div>
+  </ng-template>
+</div>

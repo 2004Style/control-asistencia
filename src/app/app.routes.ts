@@ -199,4 +199,31 @@ export const routes: Routes = [
     component: PerfilComponent,
     canActivate: [authGuard],
   },
+  {
+    path: 'profesor',
+    canActivate: [authGuard, hasRoleGuard],
+    data: { roles: [ROLES.TEACHER] },
+    children: [
+      {
+        path: 'cursos',
+        loadComponent: () =>
+          import('./pages/profesor/teacher-courses/teacher-courses.component'),
+      },
+      {
+        path: 'asistencia/:scheduleId',
+        loadComponent: () =>
+          import('./pages/profesor/take-attendance/take-attendance.component'),
+      },
+      {
+        path: '',
+        redirectTo: 'cursos',
+        pathMatch: 'full',
+      },
+    ],
+  },
+  {
+    path: '',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
+  },
 ];
